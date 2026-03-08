@@ -1,0 +1,2614 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Turning Code — Platform edukasi teknologi modern untuk mahasiswa, profesional IT, dan pelajar. Belajar coding, desain, dan skill digital masa depan.">
+    <title>Turning Code — Belajar Tanpa Batas</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* Home Page Styles */
+        .partners {
+            padding: 24px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .partners-list {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 35px;
+            flex-wrap: wrap;
+            opacity: 0.4;
+        }
+
+        .partners-list span {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+        }
+
+        .how-it-works-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            counter-reset: step;
+        }
+
+        .step-card {
+            position: relative;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 32px 20px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .step-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3);
+            border-color: var(--border-hover);
+        }
+
+        .step-card::before {
+            counter-increment: step;
+            content: counter(step);
+            position: absolute;
+            top: -16px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 36px;
+            height: 36px;
+            background: var(--accent-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            color: #fff;
+            font-size: 0.9rem;
+            line-height: 36px;
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        .step-card .step-icon {
+            font-size: 2rem;
+            margin-bottom: 16px;
+            margin-top: 8px;
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .step-card:hover .step-icon {
+            transform: scale(1.2);
+        }
+
+        .step-card h4 {
+            margin-bottom: 8px;
+        }
+
+        .step-card p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Catalog Page Styles */
+        .catalog-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 32px;
+            padding-top: 100px;
+        }
+
+        .filter-panel {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+
+        .filter-section {
+            margin-bottom: 28px;
+        }
+
+        .filter-section h4 {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 12px;
+        }
+
+        .filter-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+            cursor: pointer;
+            transition: color var(--transition-fast);
+            color: var(--text-body);
+            font-size: 0.9rem;
+        }
+
+        .filter-option:hover {
+            color: var(--text-heading);
+        }
+
+        .filter-checkbox {
+            width: 18px;
+            height: 18px;
+            border-radius: 4px;
+            border: 1.5px solid var(--border-hover);
+            background: var(--bg-input);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all var(--transition-fast);
+            font-size: 0.7rem;
+            color: transparent;
+        }
+
+        .filter-option.checked .filter-checkbox {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 14px 20px;
+            margin-bottom: 24px;
+        }
+
+        .search-bar input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: var(--text-heading);
+            font-size: 1rem;
+        }
+
+        .search-bar input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .search-bar .search-icon {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        .catalog-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .catalog-header h2 {
+            font-size: 1.25rem;
+        }
+
+        .sort-select {
+            padding: 8px 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--text-body);
+            font-size: 0.85rem;
+            outline: none;
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .instructor-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .instructor-row .avatar {
+            width: 24px;
+            height: 24px;
+            font-size: 0.6rem;
+        }
+
+        .instructor-row span {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* Course Detail Styles */
+        .detail-layout {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 40px;
+            padding-top: 100px;
+            padding-bottom: 80px;
+        }
+
+        .course-video {
+            margin-bottom: 32px;
+        }
+
+        .course-meta-row {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+
+        .course-meta-row .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .course-title {
+            margin-bottom: 16px;
+        }
+
+        .course-desc {
+            margin-bottom: 32px;
+            line-height: 1.8;
+        }
+
+        .course-instructor {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 24px;
+            background: var(--bg-card);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            margin-bottom: 32px;
+        }
+
+        .course-instructor .info h4 {
+            margin-bottom: 2px;
+        }
+
+        .course-instructor .info p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .purchase-card {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 28px;
+        }
+
+        .purchase-card .price-big {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--text-heading);
+            margin-bottom: 4px;
+        }
+
+        .purchase-card .price-original {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            text-decoration: line-through;
+            margin-left: 8px;
+        }
+
+        .purchase-card .discount-badge {
+            display: inline-flex;
+            padding: 4px 10px;
+            background: rgba(248, 113, 113, 0.15);
+            color: var(--error);
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-left: 8px;
+        }
+
+        .purchase-card .buy-btn {
+            width: 100%;
+            margin: 20px 0 16px;
+        }
+
+        .purchase-card .features-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+        }
+
+        .purchase-card .features-list li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.85rem;
+            color: var(--text-body);
+        }
+
+        .purchase-card .features-list li .icon {
+            color: var(--success);
+        }
+
+        .syllabus-module {
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+
+        .syllabus-module .module-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            background: var(--bg-card);
+            cursor: pointer;
+            transition: background var(--transition-fast);
+        }
+
+        .syllabus-module .module-header:hover {
+            background: var(--bg-card-hover);
+        }
+
+        .syllabus-module .module-header h4 {
+            font-size: 0.95rem;
+        }
+
+        .syllabus-module .module-header span {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .syllabus-module .module-lessons {
+            padding: 8px 20px 16px;
+            display: none;
+        }
+
+        .syllabus-module.open .module-lessons {
+            display: block;
+        }
+
+        .syllabus-module .lesson {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.88rem;
+            color: var(--text-body);
+        }
+
+        .syllabus-module .lesson:last-child {
+            border-bottom: none;
+        }
+
+        .syllabus-module .lesson .lesson-icon {
+            color: var(--accent-light);
+        }
+
+        .syllabus-module .lesson .lesson-dur {
+            margin-left: auto;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+
+        .review-item {
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .review-item:last-child {
+            border-bottom: none;
+        }
+
+        .review-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .review-stars {
+            color: var(--warning);
+            font-size: 0.85rem;
+        }
+
+        .review-item p {
+            font-size: 0.9rem;
+            color: var(--text-body);
+        }
+
+        /* Dashboard Styles */
+        .welcome-banner {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            margin-bottom: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-banner::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+            filter: blur(60px);
+            pointer-events: none;
+        }
+
+        .welcome-banner h2 {
+            position: relative;
+            z-index: 1;
+        }
+
+        .welcome-banner p {
+            position: relative;
+            z-index: 1;
+            color: var(--text-muted);
+            margin-top: 6px;
+        }
+
+        .welcome-banner .btn {
+            position: relative;
+            z-index: 1;
+            margin-top: 16px;
+        }
+
+        .section-title {
+            font-size: 1.15rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .section-title a {
+            font-size: 0.85rem;
+            color: var(--accent-light);
+            font-weight: 500;
+        }
+
+        .continue-card {
+            display: grid;
+            grid-template-columns: 160px 1fr;
+            gap: 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            transition: all var(--transition-base);
+            margin-bottom: 12px;
+        }
+
+        .continue-card:hover {
+            border-color: var(--border-accent);
+            transform: translateX(4px);
+        }
+
+        .continue-card .thumb {
+            width: 100%;
+            height: 100%;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        .continue-card .cont-body {
+            padding: 16px 16px 16px 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .continue-card .cont-body h4 {
+            font-size: 0.95rem;
+            margin-bottom: 6px;
+        }
+
+        .continue-card .cont-body .meta {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        .continue-card .cont-body .progress-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .continue-card .cont-body .progress-row span {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--accent-light);
+        }
+
+        .recommended-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 16px;
+        }
+
+        .rec-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            transition: all var(--transition-base);
+        }
+
+        .rec-card:hover {
+            border-color: var(--border-accent);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-card);
+        }
+
+        .rec-card .rc-icon {
+            font-size: 2rem;
+            margin-bottom: 12px;
+        }
+
+        .rec-card h4 {
+            font-size: 0.95rem;
+            margin-bottom: 6px;
+        }
+
+        .rec-card p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .rec-card .rec-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .rec-card .rec-footer .price {
+            font-weight: 700;
+            color: var(--accent-light);
+            font-size: 0.9rem;
+        }
+
+        .rec-card .rec-footer .rating {
+            font-size: 0.8rem;
+            color: var(--warning);
+        }
+
+        .streak-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .streak-card .streak-num {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--warning);
+            margin-bottom: 4px;
+        }
+
+        .streak-card .streak-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .streak-days {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .streak-days .day {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 600;
+            background: var(--bg-elevated);
+            color: var(--text-muted);
+        }
+
+        .streak-days .day.done {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        .streak-days .day.today {
+            background: var(--accent-subtle);
+            color: var(--accent-light);
+            border: 2px solid var(--accent);
+        }
+
+        .badge-grid {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .badge-item {
+            width: 56px;
+            height: 56px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+        }
+
+        .badge-item.earned {
+            border-color: var(--accent);
+            box-shadow: 0 0 12px var(--accent-glow);
+        }
+
+        .badge-item.locked {
+            opacity: 0.3;
+            filter: grayscale(1);
+        }
+
+        .dash-grid {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 28px;
+        }
+
+        .app-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 32px;
+            min-height: calc(100vh - 70px);
+            padding-top: 80px;
+        }
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            position: sticky;
+            top: 80px;
+            height: fit-content;
+        }
+
+        .sidebar-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 16px;
+        }
+
+        .sidebar-section h5 {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 12px;
+        }
+
+        .sidebar-section a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            border-radius: 6px;
+            color: var(--text-body);
+            font-size: 0.9rem;
+            transition: all var(--transition-fast);
+        }
+
+        .sidebar-section a:hover,
+        .sidebar-section a.active {
+            background: var(--accent-subtle);
+            color: var(--accent-light);
+        }
+
+        .sidebar-icon {
+            display: inline-block;
+            width: 4px;
+            height: 4px;
+            background: currentColor;
+            border-radius: 50%;
+        }
+
+        .main-content {
+            padding: 0 20px 40px;
+        }
+
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 20px;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--text-heading);
+            margin-bottom: 4px;
+        }
+
+        .stat-change {
+            font-size: 0.75rem;
+            color: var(--success);
+        }
+
+        /* Auth Styles */
+        .auth-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 100vh;
+            gap: 0;
+        }
+
+        .auth-branding {
+            background: linear-gradient(135deg, var(--bg-card), var(--bg-surface));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .auth-branding::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+            filter: blur(80px);
+            pointer-events: none;
+        }
+
+        .auth-branding-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 400px;
+        }
+
+        .auth-branding-content h2 {
+            margin-bottom: 16px;
+            font-size: 2rem;
+        }
+
+        .auth-branding-content p {
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        .auth-branding-content .stats-mini {
+            display: flex;
+            gap: 32px;
+            margin-top: 32px;
+            justify-content: center;
+        }
+
+        .auth-branding-content .stats-mini .stat {
+            text-align: center;
+        }
+
+        .auth-branding-content .stats-mini .stat strong {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-heading);
+        }
+
+        .auth-branding-content .stats-mini .stat span {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .auth-form-side {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            background: var(--bg-surface);
+        }
+
+        .auth-form-container {
+            width: 100%;
+            max-width: 420px;
+        }
+
+        .auth-form-container h2 {
+            margin-bottom: 8px;
+        }
+
+        .auth-form-container .sub {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 28px;
+        }
+
+        .form-fields {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .form-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .remember-check {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+
+        .remember-check input {
+            accent-color: var(--accent);
+        }
+
+        .forgot-link {
+            font-size: 0.85rem;
+            color: var(--accent-light);
+        }
+
+        .auth-footer-text {
+            text-align: center;
+            margin-top: 24px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .auth-footer-text a {
+            color: var(--accent-light);
+        }
+
+        .auth-tabs {
+            display: flex;
+            gap: 0;
+            margin-bottom: 24px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .auth-tab {
+            padding: 12px 0;
+            background: none;
+            border: none;
+            border-bottom: 2px solid transparent;
+            color: var(--text-muted);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            margin-right: 24px;
+        }
+
+        .auth-tab:hover {
+            color: var(--text-heading);
+        }
+
+        .auth-tab.active {
+            color: var(--accent-light);
+            border-bottom-color: var(--accent);
+        }
+
+        .auth-panel {
+            display: none;
+        }
+
+        .auth-panel.active {
+            display: block;
+        }
+
+        .social-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .btn-social {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--text-heading);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .btn-social:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--border-hover);
+        }
+
+        .auth-divider {
+            text-align: center;
+            margin: 20px 0;
+            position: relative;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .auth-divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .auth-divider {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .auth-divider::after {
+            content: 'atau';
+            background: var(--bg-surface);
+            padding: 0 12px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* FAQ Styles */
+        .faq-container {
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
+
+        .faq-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            margin-bottom: 16px;
+            overflow: hidden;
+            transition: all var(--transition-base);
+        }
+
+        .faq-item:hover {
+            border-color: var(--border-accent);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .faq-question {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            cursor: pointer;
+            transition: background var(--transition-fast);
+            font-weight: 600;
+            color: var(--text-heading);
+        }
+
+        .faq-item:hover .faq-question {
+            background: var(--bg-card-hover);
+        }
+
+        .faq-icon {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.open .faq-icon {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding: 0 20px;
+        }
+
+        .faq-item.open .faq-answer {
+            max-height: 500px;
+            padding: 0 20px 20px 20px;
+        }
+
+        .faq-answer p {
+            color: var(--text-body);
+            line-height: 1.6;
+        }
+
+        /* About Styles */
+        .about-hero {
+            background: linear-gradient(135deg, var(--bg-card), var(--bg-surface));
+            padding: 40px 0;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 30px;
+        }
+
+        .about-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+        }
+
+        .about-hero p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            max-width: 600px;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            margin-bottom: 80px;
+        }
+
+        .about-card {
+            text-align: center;
+        }
+
+        .about-card .icon {
+            font-size: 3rem;
+            margin-bottom: 16px;
+        }
+
+        .about-card h3 {
+            margin-bottom: 12px;
+        }
+
+        .about-card p {
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .team-section {
+            margin-top: 40px;
+            padding-top: 40px;
+            border-top: 1px solid var(--border);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-top: 40px;
+        }
+
+        .team-member {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            text-align: center;
+            transition: all var(--transition-base);
+        }
+
+        .team-member:hover {
+            transform: translateY(-4px);
+            border-color: var(--border-accent);
+            box-shadow: var(--shadow-card);
+        }
+
+        .team-member .avatar {
+            width: 80px;
+            height: 80px;
+            font-size: 1.5rem;
+            margin: 0 auto 16px;
+        }
+
+        .team-member h4 {
+            margin-bottom: 4px;
+        }
+
+        .team-member p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 768px) {
+
+            .about-grid,
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-hero h1 {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* Page Visibility */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @media (max-width: 1024px) {
+            .detail-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .purchase-card {
+                position: static;
+            }
+
+            .catalog-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-panel {
+                display: none;
+            }
+
+            .dash-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .app-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .auth-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .auth-branding {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .stats-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .continue-card {
+                grid-template-columns: 1fr;
+            }
+
+            .continue-card .thumb {
+                height: 100px;
+            }
+
+            .how-it-works-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar" id="navbar">
+        <div class="container flex-between">
+            <a href="#home" class="logo">
+                <div class="logo-icon">✦</div>
+                Turning Code
+            </a>
+            <div class="nav-links" id="navLinks">
+                <a href="#home" class="nav-link" data-page="home">Beranda</a>
+                <a href="#catalog" class="nav-link" data-page="catalog">Katalog</a>
+                <a href="#course-detail" class="nav-link" data-page="course-detail">Kelas</a>
+                <a href="#dashboard" class="nav-link" data-page="dashboard">Dashboard</a>
+            </div>
+            <div class="nav-actions">
+                <a href="#auth" class="btn btn-secondary btn-sm nav-link" data-page="auth">Masuk</a>
+                <a href="#auth" class="btn btn-primary btn-sm nav-link" data-page="auth">Daftar Gratis</a>
+                <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===== HOME PAGE ===== -->
+    <div id="home" class="page active">
+        <!-- ===== HERO ===== -->
+        <section class="hero" id="hero">
+            <div class="container hero-grid">
+                <div class="hero-content">
+                    <span class="badge badge-accent">🚀 Platform #1 untuk Belajar Tech</span>
+                    <h1>Kuasai Skill Digital <span class="text-gradient">Masa Depan</span></h1>
+                    <p>Belajar coding, UI/UX, data science, dan ratusan skill teknologi lainnya dari instruktur terbaik
+                        Indonesia. Dibuat untuk mahasiswa, profesional, dan pelajar.</p>
+                    <div class="hero-actions">
+                        <a href="#catalog" class="btn btn-primary btn-lg nav-link" data-page="catalog">Jelajahi Kelas
+                            →</a>
+                        <a href="#features" class="btn btn-secondary btn-lg">Lihat Fitur</a>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <strong data-count="15000" data-suffix="+">1500+</strong>
+                            <span>Siswa Aktif</span>
+                        </div>
+                        <div class="stat">
+                            <strong data-count="320" data-suffix="+">320+</strong>
+                            <span>Kelas Tersedia</span>
+                        </div>
+                        <div class="stat">
+                            <strong data-count="50" data-suffix="+">50+</strong>
+                            <span>Instruktur Ahli</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div
+                        style="width: 340px; height: 340px; border-radius: var(--radius-xl); background: var(--bg-card); border: 1px solid var(--border); display: flex; flex-direction: column; padding: 24px; gap: 16px; box-shadow: var(--shadow-elevated);">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <div class="avatar">A</div>
+                            <div>
+                                <div style="font-weight: 600; color: var(--text-heading); font-size: 0.9rem;">Andika
+                                    Putra S
+                                </div>
+                                <div style="font-size: 0.75rem; color: var(--text-muted);">Full-Stack Developer</div>
+                            </div>
+                        </div>
+                        <div
+                            style="flex: 1; background: var(--bg-surface); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 2.5rem;">
+                            💻
+                        </div>
+                        <div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                                <span style="font-size: 0.8rem; color: var(--text-muted);">Progress Kelas</span>
+                                <span
+                                    style="font-size: 0.8rem; font-weight: 600; color: var(--accent-light);">72%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="fill" style="width: 72%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== PARTNERS ===== -->
+        <section class="partners">
+            <div class="container">
+                <div class="partners-list">
+                    <span>Google</span>
+                    <span>Microsoft</span>
+                    <span>AWS</span>
+                    <span>Meta</span>
+                    <span>Tokopedia</span>
+                    <span>Gojek</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== FEATURES ===== -->
+        <section class="section" id="features">
+            <div class="container">
+                <div class="section-header reveal">
+                    <span class="eyebrow">Fitur Unggulan</span>
+                    <h2 style="margin-top: 12px;">Kenapa <span class="text-gradient">Turning Code</span>?</h2>
+                    <p>Dirancang dengan teknologi terkini untuk pengalaman belajar yang efektif dan menyenangkan.</p>
+                </div>
+                <div class="grid grid-3 reveal-stagger">
+                    <div class="feature-card reveal">
+                        <div class="feature-icon">🎥</div>
+                        <h3>Video Interaktif HD</h3>
+                        <p>Video berkualitas tinggi dengan pengaturan kecepatan, subtitle otomatis, dan kelanjutan
+                            tayangan
+                            otomatis.</p>
+                    </div>
+                    <div class="feature-card reveal">
+                        <div class="feature-icon">📝</div>
+                        <h3>Timestamp Notes</h3>
+                        <p>Catat poin penting yang otomatis terkait dengan menit tertentu di video. Review ulang jadi
+                            super
+                            cepat.</p>
+                    </div>
+                    <div class="feature-card reveal">
+                        <div class="feature-icon">🏆</div>
+                        <h3>Gamifikasi & Badges</h3>
+                        <p>Raih poin XP, daily streak, dan badge keren. Belajar jadi seru dan kompetitif seperti bermain
+                            game.</p>
+                    </div>
+                    <div class="feature-card reveal">
+                        <div class="feature-icon">💬</div>
+                        <h3>Komunitas & Q&A</h3>
+                        <p>Diskusi langsung per bab video. Tanya jawab cepat dengan sesama siswa dan instruktur.</p>
+                    </div>
+                    <div class="feature-card reveal">
+                        <div class="feature-icon">📊</div>
+                        <h3>Analitik Progres</h3>
+                        <p>Pantau kemajuan belajar Anda secara visual dengan dashboard progres, statistik, dan
+                            rekomendasi.
+                        </p>
+                    </div>
+                    <div class="feature-card reveal">
+                        <div class="feature-icon">🎓</div>
+                        <h3>Sertifikat Digital</h3>
+                        <p>Dapatkan sertifikat kelulusan yang diakui industri dan dapat langsung dibagikan ke LinkedIn.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== POPULAR COURSES ===== -->
+        <section class="section" id="courses" style="background: var(--bg-surface);">
+            <div class="container">
+                <div class="section-header reveal">
+                    <span class="eyebrow">Paling Diminati</span>
+                    <h2 style="margin-top: 12px;">Kelas <span class="text-gradient">Populer</span></h2>
+                    <p>Mulai belajar dari kelas yang paling banyak diikuti oleh ribuan siswa kami.</p>
+                </div>
+                <div class="grid grid-3 reveal-stagger">
+                    <a href="#course-detail" class="course-card reveal nav-link" style="text-decoration:none;"
+                        data-page="course-detail">
+                        <div class="thumbnail">
+                            <div
+                                style="width:100%; height:100%; background: linear-gradient(135deg, #1a1a2e, #16213e); display:flex; align-items:center; justify-content:center; font-size: 3rem;">
+                                ⚛️</div>
+                            <div class="overlay">
+                                <div class="play-btn"
+                                    style="width:48px; height:48px; font-size:1rem; background: var(--accent); border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow: var(--shadow-glow);">
+                                    ▶</div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-meta">
+                                <span class="badge badge-accent">React.js</span>
+                                <span class="badge badge-success">Pemula</span>
+                            </div>
+                            <h4 style="color: var(--text-heading);">React.js Masterclass: Dari Nol Sampai Pro</h4>
+                            <p style="font-size: 0.85rem; margin-top: 6px;">Kuasai React dari komponen dasar hingga
+                                state
+                                management dan deployment.</p>
+                        </div>
+                        <div class="card-footer">
+                            <span class="price">Rp 249.000</span>
+                            <span class="rating">⭐ 4.9 <span style="color: var(--text-muted);">(1.2k)</span></span>
+                        </div>
+                    </a>
+                    <a href="#course-detail" class="course-card reveal nav-link" style="text-decoration:none;"
+                        data-page="course-detail">
+                        <div class="thumbnail">
+                            <div
+                                style="width:100%; height:100%; background: linear-gradient(135deg, #0d1b2a, #1b263b); display:flex; align-items:center; justify-content:center; font-size: 3rem;">
+                                🐍</div>
+                            <div class="overlay">
+                                <div class="play-btn"
+                                    style="width:48px; height:48px; font-size:1rem; background: var(--accent); border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow: var(--shadow-glow);">
+                                    ▶</div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-meta">
+                                <span class="badge badge-accent">Python</span>
+                                <span class="badge badge-warning">Menengah</span>
+                            </div>
+                            <h4 style="color: var(--text-heading);">Data Science dengan Python & Pandas</h4>
+                            <p style="font-size: 0.85rem; margin-top: 6px;">Analisis data profesional, visualisasi, dan
+                                machine learning dasar.</p>
+                        </div>
+                        <div class="card-footer">
+                            <span class="price">Rp 349.000</span>
+                            <span class="rating">⭐ 4.8 <span style="color: var(--text-muted);">(890)</span></span>
+                        </div>
+                    </a>
+                    <a href="#course-detail" class="course-card reveal nav-link" style="text-decoration:none;"
+                        data-page="course-detail">
+                        <div class="thumbnail">
+                            <div
+                                style="width:100%; height:100%; background: linear-gradient(135deg, #1a0a2e, #2d1b69); display:flex; align-items:center; justify-content:center; font-size: 3rem;">
+                                🎨</div>
+                            <div class="overlay">
+                                <div class="play-btn"
+                                    style="width:48px; height:48px; font-size:1rem; background: var(--accent); border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow: var(--shadow-glow);">
+                                    ▶</div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-meta">
+                                <span class="badge badge-accent">UI/UX</span>
+                                <span class="badge badge-success">Pemula</span>
+                            </div>
+                            <h4 style="color: var(--text-heading);">UI/UX Design: Figma Mastery 2026</h4>
+                            <p style="font-size: 0.85rem; margin-top: 6px;">Belajar desain produk digital dari riset,
+                                wireframe, hingga prototype interaktif.</p>
+                        </div>
+                        <div class="card-footer">
+                            <span class="price">Rp 199.000</span>
+                            <span class="rating">⭐ 4.9 <span style="color: var(--text-muted);">(1.5k)</span></span>
+                        </div>
+                    </a>
+                </div>
+                <div style="text-align: center; margin-top: 40px;" class="reveal">
+                    <a href="#catalog" class="btn btn-outline btn-lg nav-link" data-page="catalog">Lihat Semua Kelas
+                        →</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== HOW IT WORKS ===== -->
+        <section class="section" id="how-it-works">
+            <div class="container">
+                <div class="section-header reveal">
+                    <span class="eyebrow">Cara Kerja</span>
+                    <h2 style="margin-top: 12px;">Mulai Dalam <span class="text-gradient">3 Langkah</span></h2>
+                </div>
+                <div class="how-it-works-cards reveal-stagger">
+                    <div class="step-card reveal">
+                        <div class="step-icon">📋</div>
+                        <h4>Pilih Kelas</h4>
+                        <p>Temukan kelas yang sesuai dengan minat dan level kemampuan Anda dari ratusan pilihan.</p>
+                    </div>
+                    <div class="step-card reveal">
+                        <div class="step-icon">💳</div>
+                        <h4>Daftar & Bayar</h4>
+                        <p>Buat akun gratis, lalu beli kelas atau berlangganan paket bulanan yang terjangkau.</p>
+                    </div>
+                    <div class="step-card reveal">
+                        <div class="step-icon">🎬</div>
+                        <h4>Mulai Belajar</h4>
+                        <p>Akses materi video kapan saja, kerjakan kuis, dan raih sertifikat kelulusan Anda.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== TESTIMONIALS ===== -->
+        <section class="section" id="testimonials" style="background: var(--bg-surface);">
+            <div class="container">
+                <div class="section-header reveal">
+                    <span class="eyebrow">Testimoni</span>
+                    <h2 style="margin-top: 12px;">Apa Kata <span class="text-gradient">Mereka</span>?</h2>
+                </div>
+                <div class="grid grid-3 reveal-stagger">
+                    <div class="testimonial-card reveal">
+                        <div class="quote-icon">"</div>
+                        <p>"TurningCode benar-benar mengubah cara saya belajar coding. Materinya terstruktur, dan fitur
+                            timestamp notes sangat membantu saat review!"</p>
+                        <div style="color: #ffc107; margin-bottom: 12px; font-size: 0.9rem;">⭐ ⭐ ⭐ ⭐ ⭐</div>
+                        <div class="testimonial-author">
+                            <div class="avatar">R</div>
+                            <div class="author-info">
+                                <strong>Andika Putra Susiawan</strong>
+                                <span>Mahasiswa Teknik Informatika</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card reveal">
+                        <div class="quote-icon">"</div>
+                        <p>"Sebagai profesional, saya butuh platform yang to-the-point. Kelas Python di sini langsung
+                            aplikatif dan kualitas videonya luar biasa."</p>
+                        <div style="color: #ffc107; margin-bottom: 12px; font-size: 0.9rem;">⭐ ⭐ ⭐ ⭐ ⭐</div>
+                        <div class="testimonial-author">
+                            <div class="avatar">B</div>
+                            <div class="author-info">
+                                <strong>Budi Hartono</strong>
+                                <span>Data Analyst di Gojek</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card reveal">
+                        <div class="quote-icon">"</div>
+                        <p>"Anak saya kelas 10 SMA sudah mulai belajar web development di sini. Tampilannya keren dan
+                            gamification-nya bikin dia rajin belajar setiap hari!"</p>
+                        <div style="color: #ffc107; margin-bottom: 12px; font-size: 0.9rem;">⭐ ⭐ ⭐ ⭐ ⭐</div>
+                        <div class="testimonial-author">
+                            <div class="avatar">S</div>
+                            <div class="author-info">
+                                <strong>Siti Nurhaliza</strong>
+                                <span>Orang Tua Siswa</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card reveal">
+                        <div class="quote-icon">"</div>
+                        <p>"Investasi terbaik untuk karir saya. Saya berhasil switch dari non-tech ke Web Developer
+                            dalam 6 bulan. Instrukturnya responsif dan supportif!"</p>
+                        <div style="color: #ffc107; margin-bottom: 12px; font-size: 0.9rem;">⭐ ⭐ ⭐ ⭐ ⭐</div>
+                        <div class="testimonial-author">
+                            <div class="avatar">D</div>
+                            <div class="author-info">
+                                <strong>Dina Wijaya</strong>
+                                <span>Frontend Developer di Tokopedia</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card reveal">
+                        <div class="quote-icon">"</div>
+                        <p>"Komunitas di sini sangat supportif! Setiap pertanyaan saya cepat dijawab. Belajar jadi lebih
+                            menyenangkan dan tidak merasa sendiri."</p>
+                        <div style="color: #ffc107; margin-bottom: 12px; font-size: 0.9rem;">⭐ ⭐ ⭐ ⭐ ⭐</div>
+                        <div class="testimonial-author">
+                            <div class="avatar">M</div>
+                            <div class="author-info">
+                                <strong>Muhammad Rizal</strong>
+                                <span>Pemula - Self-Taught Developer</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card reveal">
+                        <div class="quote-icon">"</div>
+                        <p>"Setelah lulus, saya langsung dapat tawaran pekerjaan dari recruiter yang menemukan profil
+                            saya di platform ini. Terima kasih TurningCode!"</p>
+                        <div style="color: #ffc107; margin-bottom: 12px; font-size: 0.9rem;">⭐ ⭐ ⭐ ⭐ ⭐</div>
+                        <div class="testimonial-author">
+                            <div class="avatar">N</div>
+                            <div class="author-info">
+                                <strong>Nur Azizah</strong>
+                                <span>UI/UX Designer di Shopify</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== CTA ===== -->
+        <section class="section" id="cta">
+            <div class="container">
+                <div class="cta-banner reveal">
+                    <h2>Siap Memulai Perjalanan <span class="text-gradient">Belajar</span> Anda?</h2>
+                    <p>Bergabung dengan 15.000+ siswa lainnya dan mulai kuasai skill digital yang paling dicari di dunia
+                        kerja.</p>
+                    <a href="#auth" class="btn btn-primary btn-lg nav-link" data-page="auth">Daftar Gratis Sekarang
+                        →</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== ABOUT SECTION ===== -->
+        <section class="about-hero" id="about-section" style="margin-top: 15px;">
+            <div class="container">
+                <h1>Tentang <span class="text-gradient">Turning Code</span></h1>
+                <p>Kami berkomitmen untuk membuat pendidikan teknologi berkualitas tinggi dapat diakses oleh semua
+                    orang, di mana pun mereka berada.</p>
+            </div>
+        </section>
+
+        <div class="container" style="margin-top: 30px;">
+            <div class="about-grid">
+                <div class="about-card reveal">
+                    <div class="icon">🎯</div>
+                    <h3>Misi Kami</h3>
+                    <p>Memberdayakan generasi digital dengan memberikan akses ke pengetahuan dan keterampilan teknologi
+                        terkini yang relevan dengan kebutuhan industri modern.</p>
+                </div>
+                <div class="about-card reveal">
+                    <div class="icon">👁️</div>
+                    <h3>Visi Kami</h3>
+                    <p>Menjadi platform edukasi teknologi nomor satu di Indonesia yang dipercaya oleh jutaan pelajar,
+                        profesional, dan perusahaan untuk pengembangan skill digital.</p>
+                </div>
+                <div class="about-card reveal">
+                    <div class="icon">💡</div>
+                    <h3>Nilai Kami</h3>
+                    <p>Inovasi, kualitas, aksesibilitas, dan komitmen terhadap kesuksesan siswa adalah nilai-nilai inti
+                        yang mendorong setiap keputusan kami.</p>
+                </div>
+            </div>
+
+            <section class="team-section reveal">
+                <h2 style="text-align: center; margin-bottom: 12px;">Tim Kami</h2>
+                <p style="text-align: center; color: var(--text-muted); margin-bottom: 40px;">Dibangun oleh para ahli
+                    dengan pengalaman puluhan tahun di industri teknologi.</p>
+
+                <div class="team-grid">
+                    <div class="team-member reveal">
+                        <div class="avatar">HR</div>
+                        <h4>Hiadar Rifky</h4>
+                        <p>Web Development</p>
+                        <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 8px;">4+ tahun di industri
+                            tech</p>
+                    </div>
+                    <div class="team-member reveal">
+                        <div class="avatar">HA</div>
+                        <h4>Halena Azalia</h4>
+                        <p>UI/UX Designer</p>
+                        <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 8px;">3+ tahun di
+                            pendidikan teknologi</p>
+                    </div>
+                    <div class="team-member reveal">
+                        <div class="avatar">HK</div>
+                        <h4>Hiqmal Kasogi</h4>
+                        <p>Backend Developer</p>
+                        <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 8px;">4+ tahun di backend
+                            development</p>
+                    </div>
+                    <div class="team-member reveal">
+                        <div class="avatar">EN</div>
+                        <h4>Eneng Nurrohmah</h4>
+                        <p>UI/UX Designer</p>
+                        <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 8px;">3+ tahun di UX/UI
+                            design</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ===== FAQ SECTION ===== -->
+        <div class="container" style="margin-top: 40px;" id="faq-section">
+            <div class="section-header reveal">
+                <span class="eyebrow">Bantuan</span>
+                <h2 style="margin-top: 12px;">Pertanyaan yang <span class="text-gradient">Sering Diajukan</span></h2>
+                <p>Cari jawaban untuk pertanyaan umum tentang Turning Code.</p>
+            </div>
+
+            <div style="max-width: 800px; margin: 30px auto; display: grid; gap: 16px;">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                        <span>Bagaimana cara mendaftar di Turning Code?</span>
+                        <span class="faq-icon">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Untuk mendaftar, klik tombol "Daftar Gratis" di navbar, isi formulir dengan data Anda, pilih
+                            peran (mahasiswa, profesional IT, atau lainnya), dan setujui syarat & ketentuan. Akun Anda
+                            akan langsung aktif setelah mendaftar.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                        <span>Apakah saya bisa mengakses kursus selamanya?</span>
+                        <span class="faq-icon">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Ya! Ketika Anda membeli atau berlangganan kursus, Anda mendapatkan akses seumur hidup. Anda
+                            bisa belajar kapan saja, di mana saja, dan dapat mengulangi materi sebanyak yang Anda
+                            inginkan.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                        <span>Bagaimana jika saya tidak puas dengan kursus?</span>
+                        <span class="faq-icon">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Kami menawarkan garansi uang kembali 100% selama 30 hari pertama jika Anda tidak puas. Tidak
+                            ada pertanyaan yang diajukan. Hubungi tim dukungan kami dan kami akan memproses pengembalian
+                            dana Anda dengan cepat.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                        <span>Apakah sertifikat yang diberikan diakui secara luas?</span>
+                        <span class="faq-icon">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Ya, sertifikat digital kami diakui oleh industri dan dapat langsung dibagikan ke LinkedIn.
+                            Setiap sertifikat mencakup rincian kursus, durasi, dan instruktur untuk memverifikasi
+                            keasliannya.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                        <span>Bagaimana dengan support dan bantuan?</span>
+                        <span class="faq-icon">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Kami menyediakan komunitas Q&A di mana Anda bisa bertanya kepada instruktur dan siswa
+                            lainnya. Tim dukungan kami juga siap membantu melalui email dan live chat untuk masalah
+                            teknis atau pertanyaan umum.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                        <span>Apa metode pembayaran yang diterima?</span>
+                        <span class="faq-icon">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Kami menerima berbagai metode pembayaran termasuk kartu kredit (Visa, Mastercard), transfer
+                            bank, e-wallet, dan cicilan 0% untuk pembelian tertentu. Semua transaksi diproses dengan
+                            aman dan terenkripsi.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== FOOTER ===== -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-brand">
+                        <a href="#home" class="logo nav-link" style="margin-bottom: 4px;" data-page="home">
+                            <div class="logo-icon"></div>
+                            TurningCode
+                        </a>
+                        <p>Platform edukasi teknologi modern untuk generasi digital Indonesia. Belajar kapan saja, di
+                            mana
+                            saja.</p>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Platform</h4>
+                        <ul>
+                            <li><a href="#catalog" class="nav-link" data-page="catalog">Katalog Kelas</a></li>
+                            <li><a href="#">Harga</a></li>
+                            <li><a href="#">Blog</a></li>
+                            <li><a href="#">Instruktur</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Perusahaan</h4>
+                        <ul>
+                            <li><a href="#">Tentang Kami</a></li>
+                            <li><a href="#">Karir</a></li>
+                            <li><a href="#">Mitra Kampus</a></li>
+                            <li><a href="#">Kontak</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Bantuan</h4>
+                        <ul>
+                            <li><a href="#">FAQ</a></li>
+                            <li><a href="#">Kebijakan Privasi</a></li>
+                            <li><a href="#">Syarat & Ketentuan</a></li>
+                            <li><a href="#">Pusat Bantuan</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <span>&copy; 2026 TurningCode. All rights reserved.</span>
+                    <div class="footer-socials">
+                        <a href="#" aria-label="Twitter">𝕏</a>
+                        <a href="#" aria-label="Instagram">📷</a>
+                        <a href="#" aria-label="LinkedIn">in</a>
+                        <a href="#" aria-label="YouTube">▶</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- ===== CATALOG PAGE ===== -->
+    <div id="catalog" class="page">
+        <nav class="navbar" style="position: sticky; top: 0; z-index: 999;">
+            <div class="container flex-between">
+                <a href="#home" class="logo nav-link" data-page="home">
+                    <div class="logo-icon">✦</div>Turning Code
+                </a>
+                <div class="nav-links" id="navLinks">
+                    <a href="#home" class="nav-link" data-page="home">Beranda</a>
+                    <a href="#catalog" class="nav-link active" data-page="catalog">Katalog</a>
+                    <a href="#course-detail" class="nav-link" data-page="course-detail">Kelas</a>
+                    <a href="#dashboard" class="nav-link" data-page="dashboard">Dashboard</a>
+                </div>
+                <div class="nav-actions">
+                    <a href="#auth" class="btn btn-secondary btn-sm nav-link" data-page="auth">Masuk</a>
+                    <a href="#auth" class="btn btn-primary btn-sm nav-link" data-page="auth">Daftar Gratis</a>
+                </div>
+            </div>
+        </nav>
+
+        <main class="container">
+            <div class="catalog-layout">
+                <aside class="filter-panel">
+                    <h3 style="margin-bottom: 24px;">Filter</h3>
+                    <div class="filter-section">
+                        <h4>Kategori</h4>
+                        <div class="filter-option checked" onclick="this.classList.toggle('checked')">
+                            <div class="filter-checkbox">✓</div>
+                            <span>Semua Kategori</span>
+                        </div>
+                        <div class="filter-option" onclick="this.classList.toggle('checked')">
+                            <div class="filter-checkbox"></div>
+                            <span>Web Development</span>
+                        </div>
+                        <div class="filter-option" onclick="this.classList.toggle('checked')">
+                            <div class="filter-checkbox"></div>
+                            <span>Mobile Development</span>
+                        </div>
+                        <div class="filter-option" onclick="this.classList.toggle('checked')">
+                            <div class="filter-checkbox"></div>
+                            <span>UI/UX Design</span>
+                        </div>
+                        <div class="filter-option" onclick="this.classList.toggle('checked')">
+                            <div class="filter-checkbox"></div>
+                            <span>Data Science</span>
+                        </div>
+                        <div class="filter-option" onclick="this.classList.toggle('checked')">
+                            <div class="filter-checkbox"></div>
+                            <span>DevOps & Cloud</span>
+                        </div>
+                    </div>
+
+                    <div class="filter-section">
+                        <h4>Level</h4>
+                        <div class="filter-option checked" onclick="this.classList.toggle('checked')">
+                            <div class="filter-checkbox">✓</div>
+                            <span>Pemula</span>
+                        </div>
+                        <div class="filter-option checked" onclick="this.classList.toggle('checked')">
+                            <div class="filter-checkbox">✓</div>
+                            <span>Menengah</span>
+                        </div>
+                        <div class="filter-option" onclick="this.classList.toggle('checked')">
+                            <div class="filter-checkbox"></div>
+                            <span>Lanjutan</span>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary" style="width: 100%; margin-top: 8px;">Terapkan Filter</button>
+                </aside>
+
+                <section>
+                    <div class="search-bar">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" placeholder="Cari kelas, instruktur, atau skill...">
+                    </div>
+                    <div class="catalog-header">
+                        <h2>Katalog Kelas</h2>
+                        <select class="sort-select">
+                            <option>Terbaru</option>
+                            <option>Paling Populer</option>
+                            <option>Rating Tertinggi</option>
+                        </select>
+                    </div>
+                    <div class="courses-grid">
+                        <a href="#course-detail" class="course-card nav-link" style="text-decoration:none;"
+                            data-page="course-detail">
+                            <div class="thumbnail">
+                                <div
+                                    style="width:100%;height:100%;background:linear-gradient(135deg,#1a1a2e,#16213e);display:flex;align-items:center;justify-content:center;font-size:2.5rem;">
+                                    ⚛️</div>
+                            </div>
+                            <div class="card-body">
+                                <div class="card-meta"><span class="badge badge-accent">React.js</span><span
+                                        class="badge badge-success">Pemula</span></div>
+                                <h4 style="color:var(--text-heading)">React.js Masterclass: Dari Nol Sampai Pro</h4>
+                                <div class="instructor-row">
+                                    <div class="avatar">AF</div><span>Ahmad Fauzi · 12 jam · 48 materi</span>
+                                </div>
+                            </div>
+                            <div class="card-footer"><span class="price">Rp 249.000</span><span class="rating">⭐ 4.9
+                                    (1.2k)</span></div>
+                        </a>
+                        <a href="#course-detail" class="course-card nav-link" style="text-decoration:none;"
+                            data-page="course-detail">
+                            <div class="thumbnail">
+                                <div
+                                    style="width:100%;height:100%;background:linear-gradient(135deg,#0d1b2a,#1b263b);display:flex;align-items:center;justify-content:center;font-size:2.5rem;">
+                                    🐍</div>
+                            </div>
+                            <div class="card-body">
+                                <div class="card-meta"><span class="badge badge-accent">Python</span><span
+                                        class="badge badge-warning">Menengah</span></div>
+                                <h4 style="color:var(--text-heading)">Data Science dengan Python & Pandas</h4>
+                                <div class="instructor-row">
+                                    <div class="avatar">R</div><span>Rizki Pratama · 18 jam · 56 materi</span>
+                                </div>
+                            </div>
+                            <div class="card-footer"><span class="price">Rp 349.000</span><span class="rating">⭐ 4.8
+                                    (890)</span></div>
+                        </a>
+                        <a href="#course-detail" class="course-card nav-link" style="text-decoration:none;"
+                            data-page="course-detail">
+                            <div class="thumbnail">
+                                <div
+                                    style="width:100%;height:100%;background:linear-gradient(135deg,#1a0a2e,#2d1b69);display:flex;align-items:center;justify-content:center;font-size:2.5rem;">
+                                    🎨</div>
+                            </div>
+                            <div class="card-body">
+                                <div class="card-meta"><span class="badge badge-accent">UI/UX</span><span
+                                        class="badge badge-success">Pemula</span></div>
+                                <h4 style="color:var(--text-heading)">UI/UX Design: Figma Mastery 2026</h4>
+                                <div class="instructor-row">
+                                    <div class="avatar">S</div><span>Andika Putra S · 10 jam · 36 materi</span>
+                                </div>
+                            </div>
+                            <div class="card-footer"><span class="price">Rp 199.000</span><span class="rating">⭐ 4.9
+                                    (1.5k)</span></div>
+                        </a>
+                        <a href="#course-detail" class="course-card nav-link" style="text-decoration:none;"
+                            data-page="course-detail">
+                            <div class="thumbnail">
+                                <div
+                                    style="width:100%;height:100%;background:linear-gradient(135deg,#0a1929,#132f4c);display:flex;align-items:center;justify-content:center;font-size:2.5rem;">
+                                    📱</div>
+                            </div>
+                            <div class="card-body">
+                                <div class="card-meta"><span class="badge badge-accent">Flutter</span><span
+                                        class="badge badge-warning">Menengah</span></div>
+                                <h4 style="color:var(--text-heading)">Flutter & Dart: Build 5 Real Apps</h4>
+                                <div class="instructor-row">
+                                    <div class="avatar">R</div><span>Rizky Pratama · 24 jam · 82 materi</span>
+                                </div>
+                            </div>
+                            <div class="card-footer"><span class="price">Rp 399.000</span><span class="rating">⭐ 4.7
+                                    (650)</span></div>
+                        </a>
+                        <a href="#course-detail" class="course-card nav-link" style="text-decoration:none;"
+                            data-page="course-detail">
+                            <div class="thumbnail">
+                                <div
+                                    style="width:100%;height:100%;background:linear-gradient(135deg,#1a1a1a,#2d2d2d);display:flex;align-items:center;justify-content:center;font-size:2.5rem;">
+                                    ☁️</div>
+                            </div>
+                            <div class="card-body">
+                                <div class="card-meta"><span class="badge badge-accent">DevOps</span><span
+                                        class="badge badge-warning">Menengah</span></div>
+                                <h4 style="color:var(--text-heading)">Docker & Kubernetes: Cloud Native</h4>
+                                <div class="instructor-row">
+                                    <div class="avatar">F</div><span>Fajar Nugroho · 15 jam · 52 materi</span>
+                                </div>
+                            </div>
+                            <div class="card-footer"><span class="price">Rp 299.000</span><span class="rating">⭐ 4.8
+                                    (720)</span></div>
+                        </a>
+                        <a href="#course-detail" class="course-card nav-link" style="text-decoration:none;"
+                            data-page="course-detail">
+                            <div class="thumbnail">
+                                <div
+                                    style="width:100%;height:100%;background:linear-gradient(135deg,#0a2e1a,#1b4332);display:flex;align-items:center;justify-content:center;font-size:2.5rem;">
+                                    🔒</div>
+                            </div>
+                            <div class="card-body">
+                                <div class="card-meta"><span class="badge badge-accent">Security</span><span
+                                        class="badge badge-warning">Menengah</span></div>
+                                <h4 style="color:var(--text-heading)">Cybersecurity & Ethical Hacking</h4>
+                                <div class="instructor-row">
+                                    <div class="avatar">A</div><span>Aldi Setiawan · 20 jam · 64 materi</span>
+                                </div>
+                            </div>
+                            <div class="card-footer"><span class="price">Rp 449.000</span><span class="rating">⭐ 4.9
+                                    (580)</span></div>
+                        </a>
+                    </div>
+                    <div style="text-align: center; margin-top: 48px;">
+                        <button class="btn btn-outline btn-lg">Muat Lebih Banyak</button>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <footer class="footer" style="margin-top: 64px;">
+            <div class="container">
+                <div class="footer-bottom" style="margin-top: 0; padding-top: 0; border: none;">
+                    <span>&copy; 2026 TurningCode. All rights reserved.</span>
+                    <div class="footer-socials">
+                        <a href="#">𝕏</a><a href="#">📷</a><a href="#">in</a><a href="#">▶</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- ===== COURSE DETAIL PAGE ===== -->
+    <div id="course-detail" class="page">
+        <nav class="navbar" style="position: sticky; top: 0; z-index: 999;">
+            <div class="container flex-between">
+                <a href="#home" class="logo nav-link" data-page="home">
+                    <div class="logo-icon">✦</div>Turning Code
+                </a>
+                <div class="nav-links" id="navLinks">
+                    <a href="#home" class="nav-link" data-page="home">Beranda</a>
+                    <a href="#catalog" class="nav-link" data-page="catalog">Katalog</a>
+                    <a href="#course-detail" class="nav-link active" data-page="course-detail">Kelas</a>
+                    <a href="#dashboard" class="nav-link" data-page="dashboard">Dashboard</a>
+                </div>
+                <div class="nav-actions">
+                    <a href="#auth" class="btn btn-secondary btn-sm nav-link" data-page="auth">Masuk</a>
+                    <a href="#auth" class="btn btn-primary btn-sm nav-link" data-page="auth">Daftar Gratis</a>
+                </div>
+            </div>
+        </nav>
+
+        <main class="container">
+            <div class="detail-layout">
+                <div>
+                    <div class="course-video">
+                        <div class="video-player-wrapper">
+                            <div
+                                style="width:100%;height:100%;background:linear-gradient(135deg,#1a1a2e,#16213e);display:flex;align-items:center;justify-content:center;font-size:4rem;">
+                                ⚛️</div>
+                            <div
+                                style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:64px;height:64px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;cursor:pointer;box-shadow:var(--shadow-glow);">
+                                ▶</div>
+                        </div>
+                    </div>
+
+                    <div class="course-meta-row">
+                        <span class="badge badge-accent">React.js</span>
+                        <span class="badge badge-success">Pemula</span>
+                        <div class="meta-item">⏱ 12 jam total</div>
+                        <div class="meta-item">📚 48 materi</div>
+                        <div class="meta-item">👥 1.200 siswa</div>
+                        <div class="meta-item">⭐ 4.9 / 5.0</div>
+                    </div>
+
+                    <h1 class="course-title">React.js Masterclass: Dari Nol Sampai Pro</h1>
+                    <p class="course-desc">Kuasai React.js secara menyeluruh — mulai dari pemahaman komponen, JSX, state
+                        &
+                        props, hooks, context API, React Router, hingga state management dengan Redux Toolkit. Di akhir
+                        kelas, Anda akan membangun proyek nyata: dashboard admin full-featured yang siap deploy.</p>
+
+                    <div class="course-instructor">
+                        <div class="avatar" style="width:56px;height:56px;font-size:1.2rem;">AF</div>
+                        <div class="info">
+                            <h4>Ahmad Fauzi</h4>
+                            <p>Senior Frontend Engineer · 8 tahun pengalaman · Ex-Tokopedia</p>
+                        </div>
+                    </div>
+
+                    <div data-tabs>
+                        <div class="tabs">
+                            <button class="tab-btn active" data-tab="syllabus">Silabus</button>
+                            <button class="tab-btn" data-tab="reviews">Ulasan</button>
+                            <button class="tab-btn" data-tab="requirements">Prasyarat</button>
+                        </div>
+
+                        <div class="tab-content active" id="syllabus">
+                            <div class="syllabus-module open">
+                                <div class="module-header" onclick="this.parentElement.classList.toggle('open')">
+                                    <h4>Modul 1: Pengenalan React & Setup</h4><span>5 materi · 1 jam 20 mnt</span>
+                                </div>
+                                <div class="module-lessons">
+                                    <div class="lesson"><span class="lesson-icon">▶</span> Apa itu React? <span
+                                            class="lesson-dur">12:30</span></div>
+                                    <div class="lesson"><span class="lesson-icon">▶</span> Setup Development Environment
+                                        <span class="lesson-dur">18:45</span>
+                                    </div>
+                                    <div class="lesson"><span class="lesson-icon">▶</span> Membuat Proyek React Pertama
+                                        <span class="lesson-dur">15:20</span>
+                                    </div>
+                                    <div class="lesson"><span class="lesson-icon">▶</span> Memahami Struktur Folder
+                                        <span class="lesson-dur">10:00</span>
+                                    </div>
+                                    <div class="lesson"><span class="lesson-icon">📝</span> Kuis: Dasar React <span
+                                            class="lesson-dur">Quiz</span></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-content" id="reviews">
+                            <div class="review-item">
+                                <div class="review-header">
+                                    <div class="avatar">R</div>
+                                    <strong style="font-size:0.9rem;">Rina Saputri</strong>
+                                    <span class="review-stars">⭐⭐⭐⭐⭐</span>
+                                </div>
+                                <p>Kelas terbaik! Penjelasan sangat jelas dan mini project sangat membantu.</p>
+                            </div>
+                            <div class="review-item">
+                                <div class="review-header">
+                                    <div class="avatar">B</div>
+                                    <strong style="font-size:0.9rem;">Budi Hartono</strong>
+                                    <span class="review-stars">⭐⭐⭐⭐⭐</span>
+                                </div>
+                                <p>Setelah kelas ini, saya berhasil migrasi proyek kantor dari jQuery ke React. Worth
+                                    it!</p>
+                            </div>
+                        </div>
+
+                        <div class="tab-content" id="requirements">
+                            <h4 style="margin-bottom: 16px;">Yang Perlu Disiapkan</h4>
+                            <ul style="display:flex; flex-direction:column; gap: 12px;">
+                                <li style="display:flex; align-items:center; gap:10px;"><span
+                                        style="color:var(--accent-light);">✓</span> Pemahaman HTML, CSS, JavaScript</li>
+                                <li style="display:flex; align-items:center; gap:10px;"><span
+                                        style="color:var(--accent-light);">✓</span> Laptop/PC dengan minimal 4GB RAM
+                                </li>
+                                <li style="display:flex; align-items:center; gap:10px;"><span
+                                        style="color:var(--accent-light);">✓</span> Node.js v18+ terinstal</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <aside>
+                    <div class="purchase-card">
+                        <div style="display:flex; align-items:baseline; flex-wrap:wrap; gap: 4px;">
+                            <span class="price-big">Rp 249.000</span>
+                            <span class="price-original">Rp 499.000</span>
+                            <span class="discount-badge">-50%</span>
+                        </div>
+                        <p style="font-size:0.85rem; color: var(--error); margin-top: 8px;">🔥 Promo berakhir dalam 2
+                            hari!</p>
+                        <a href="#auth" class="btn btn-primary btn-lg buy-btn nav-link" data-page="auth">Beli Sekarang
+                            →</a>
+                        <button class="btn btn-secondary buy-btn" style="margin-top: 0;">Tambah ke Wishlist ♡</button>
+                        <ul class="features-list">
+                            <li><span class="icon">✓</span> Akses selamanya (Lifetime)</li>
+                            <li><span class="icon">✓</span> 48 materi video HD</li>
+                            <li><span class="icon">✓</span> 2 mini project & 1 final project</li>
+                            <li><span class="icon">✓</span> 5 kuis interaktif</li>
+                            <li><span class="icon">✓</span> Sertifikat kelulusan digital</li>
+                            <li><span class="icon">✓</span> Akses komunitas Q&A</li>
+                            <li><span class="icon">✓</span> Source code lengkap</li>
+                            <li><span class="icon">✓</span> Update materi gratis</li>
+                        </ul>
+                    </div>
+                </aside>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-bottom" style="margin-top:0;padding-top:0;border:none;">
+                    <span>&copy; 2026 TurningCode. All rights reserved.</span>
+                    <div class="footer-socials"><a href="#">𝕏</a><a href="#">📷</a><a href="#">in</a><a href="#">▶</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- ===== DASHBOARD PAGE ===== -->
+    <div id="dashboard" class="page">
+        <nav class="navbar">
+            <div class="container flex-between">
+                <a href="#home" class="logo nav-link" data-page="home">
+                    <div class="logo-icon">✦</div>TurningCode
+                </a>
+                <div class="nav-links" id="navLinks">
+                    <a href="#home" class="nav-link" data-page="home">Beranda</a>
+                    <a href="#catalog" class="nav-link" data-page="catalog">Katalog</a>
+                    <a href="#course-detail" class="nav-link" data-page="course-detail">Kelas</a>
+                    <a href="#dashboard" class="nav-link active" data-page="dashboard">Dashboard</a>
+                </div>
+                <div class="nav-actions">
+                    <button class="btn-icon" title="Notifikasi">🔔</button>
+                    <div class="avatar" style="cursor: pointer;">AP</div>
+                </div>
+            </div>
+        </nav>
+
+        <div class="app-layout">
+            <aside class="sidebar">
+                <div class="sidebar-section">
+                    <h5>Menu</h5>
+                    <a href="#dashboard" class="active nav-link" data-page="dashboard"><span
+                            class="sidebar-icon"></span> Dashboard</a>
+                    <a href="#"><span class="sidebar-icon"></span> Kelas Saya</a>
+                    <a href="#"><span class="sidebar-icon"></span> Ruang Belajar</a>
+                    <a href="#"><span class="sidebar-icon"></span> Sertifikat</a>
+                </div>
+                <div class="sidebar-section">
+                    <h5>Lainnya</h5>
+                    <a href="#catalog" class="nav-link" data-page="catalog"><span class="sidebar-icon"></span>
+                        Jelajahi</a>
+                    <a href="#"><span class="sidebar-icon"></span> Wishlist</a>
+                    <a href="#"><span class="sidebar-icon"></span> Pengaturan</a>
+                </div>
+            </aside>
+
+            <main class="main-content">
+                <div class="welcome-banner reveal">
+                    <div>
+                        <h2 id="dynamic-greeting">Selamat datang kembali, <span class="text-gradient">Andika P.S</span>!
+                            👋</h2>
+                        <p>Kamu sudah belajar 3 hari berturut-turut. Lanjutkan streak-mu!</p>
+                        <div style="display: flex; gap: 12px; margin-top: 16px;">
+                            <a href="#course-detail" class="btn btn-primary nav-link" data-page="course-detail">Belajar
+                                Sekarang →</a>
+                            <a href="#" class="btn btn-secondary">Lihat Tugas Saya</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stats-row reveal-stagger" style="margin-bottom: 28px;">
+                    <div class="stat-card reveal" data-tooltip="Total kelas yang sedang Anda pelajari">
+                        <div class="stat-label">Kelas Diikuti</div>
+                        <div class="stat-value">4</div>
+                        <div class="stat-change">↑ 1 bulan ini</div>
+                    </div>
+                    <div class="stat-card reveal" data-tooltip="Materi video dan artikel yang sudah diselesaikan">
+                        <div class="stat-label">Materi Selesai</div>
+                        <div class="stat-value">67</div>
+                        <div class="stat-change">↑ 12 minggu ini</div>
+                    </div>
+                    <div class="stat-card reveal" data-tooltip="Total durasi belajar dari video yang ditonton">
+                        <div class="stat-label">Jam Belajar</div>
+                        <div class="stat-value">28.5</div>
+                        <div class="stat-change">↑ 4.2 jam minggu ini</div>
+                    </div>
+                    <div class="stat-card reveal" data-tooltip="Total sertifikat kelulusan yang didapat">
+                        <div class="stat-label">Sertifikat</div>
+                        <div class="stat-value">1</div>
+                    </div>
+                </div>
+
+                <div class="dash-grid reveal-stagger">
+                    <!-- Left Column: Continue Learning & Timeline -->
+                    <div class="reveal">
+                        <!-- Continue Learning -->
+                        <div class="section-title">
+                            <h3>Lanjutkan Belajar</h3><a href="#">Lihat semua →</a>
+                        </div>
+                        <a href="#course-detail" class="continue-card nav-link" style="text-decoration:none;"
+                            data-page="course-detail">
+                            <div class="thumb" style="background: linear-gradient(135deg, #1A1A2E, #16213E);">
+                                <div class="progress-ring" data-perc="42">
+                                    <svg width="60" height="60">
+                                        <defs>
+                                            <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                                <stop offset="0%" stop-color="#8B5CF6" />
+                                                <stop offset="100%" stop-color="#C4B5FD" />
+                                            </linearGradient>
+                                        </defs>
+                                        <circle class="bg" cx="30" cy="30" r="26"></circle>
+                                        <circle class="fill-ring" cx="30" cy="30" r="26" stroke-dasharray="163.36"
+                                            stroke-dashoffset="163.36"></circle>
+                                    </svg>
+                                    <span class="percentage">42%</span>
+                                </div>
+                            </div>
+                            <div class="cont-body">
+                                <h4>React.js Masterclass</h4>
+                                <div class="meta">Modul 3: State & Hooks · Materi 2 / 7</div>
+                                <div
+                                    style="display:flex; align-items:center; gap: 8px; font-size: 0.8rem; color: var(--text-muted);">
+                                    <span
+                                        style="display:inline-block; width:8px; height:8px; background:var(--success); border-radius:50%;"></span>
+                                    Lanjut ke video: "useEffect Hook Dasar"
+                                </div>
+                            </div>
+                        </a>
+
+                        <!-- Weekly Goals -->
+                        <div class="section-title" style="margin-top: 32px;">
+                            <h3>Target Belajar Mingguan</h3>
+                        </div>
+                        <div class="card" style="margin-bottom: 24px;">
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                                <div>
+                                    <h4 style="font-size: 0.95rem;">Waktu Belajar</h4>
+                                    <span style="font-size: 0.8rem; color: var(--text-muted);">Target: 5 Jam</span>
+                                </div>
+                                <div style="font-size: 1.1rem; font-weight: 700; color: var(--accent-light);">4.2 <span
+                                        style="font-size: 0.8rem; font-weight: 400; color: var(--text-muted);">/ 5
+                                        Jam</span></div>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="fill" style="width: 84%;"></div>
+                            </div>
+                            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 12px;">Hanya butuh 48
+                                menit lagi untuk mencapai target mingguan Anda! Semangat! 💪</p>
+                        </div>
+
+                        <!-- Activity Timeline -->
+                        <div class="section-title" style="margin-top: 32px;">
+                            <h3>Aktivitas Terkini</h3>
+                        </div>
+                        <div class="card">
+                            <div style="display: flex; flex-direction: column; gap: 20px;">
+                                <div style="display: flex; gap: 16px;">
+                                    <div
+                                        style="width: 36px; height: 36px; background: rgba(52, 211, 153, 0.15); color: var(--success); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                        🎬</div>
+                                    <div>
+                                        <h4 style="font-size: 0.9rem;">Menyelesaikan Materi Video</h4>
+                                        <p style="font-size: 0.8rem; color: var(--text-muted);">"useState dalam Komponen
+                                            Functional" di Kelas React.js</p>
+                                        <span
+                                            style="font-size: 0.75rem; color: var(--text-muted); display: block; margin-top: 4px;">Hari
+                                            ini, 10:45</span>
+                                    </div>
+                                </div>
+                                <div style="display: flex; gap: 16px;">
+                                    <div
+                                        style="width: 36px; height: 36px; background: rgba(139, 92, 246, 0.15); color: var(--accent-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                        🏆</div>
+                                    <div>
+                                        <h4 style="font-size: 0.9rem;">Mendapatkan Badge Baru</h4>
+                                        <p style="font-size: 0.8rem; color: var(--text-muted);">Badge "3-Day Streak"
+                                            terbuka!</p>
+                                        <span
+                                            style="font-size: 0.75rem; color: var(--text-muted); display: block; margin-top: 4px;">Kemarin,
+                                            21:10</span>
+                                    </div>
+                                </div>
+                                <div style="display: flex; gap: 16px;">
+                                    <div
+                                        style="width: 36px; height: 36px; background: rgba(251, 191, 36, 0.15); color: var(--warning); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                        📝</div>
+                                    <div>
+                                        <h4 style="font-size: 0.9rem;">Lulus Kuis</h4>
+                                        <p style="font-size: 0.8rem; color: var(--text-muted);">"Dasar-dasar Python &
+                                            Sintaks" (Nilai: 100/100)</p>
+                                        <span
+                                            style="font-size: 0.75rem; color: var(--text-muted); display: block; margin-top: 4px;">2
+                                            hari yang lalu, 19:30</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Streaks, Badges, Recs -->
+                    <div class="reveal">
+                        <div class="streak-card">
+                            <div class="streak-num">3</div>
+                            <div class="streak-label">Hari Streak Belajar 🔥</div>
+                            <div class="streak-days">
+                                <div class="day done">S</div>
+                                <div class="day done">S</div>
+                                <div class="day done">R</div>
+                                <div class="day today">K</div>
+                                <div class="day">J</div>
+                                <div class="day">S</div>
+                                <div class="day">M</div>
+                            </div>
+                            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 16px;">Pertahankan! 4
+                                hari lagi untuk mendapatkan badge "1-Week Master".</p>
+                        </div>
+
+                        <div class="section-title">
+                            <h3>Pencapaian</h3><a href="#">Semua</a>
+                        </div>
+                        <div class="card" style="margin-bottom: 24px;">
+                            <div class="badge-grid">
+                                <div class="badge-item earned" data-tooltip="Penyelesai Modul Pertama">🎯</div>
+                                <div class="badge-item earned" data-tooltip="3-Day Streak">🔥</div>
+                                <div class="badge-item earned" data-tooltip="Reviewer Kelas">💬</div>
+                                <div class="badge-item locked" data-tooltip="7-Day Streak">⭐</div>
+                                <div class="badge-item locked" data-tooltip="Lulus Kelas Pertama">🎓</div>
+                            </div>
+                        </div>
+
+                        <div class="section-title">
+                            <h3>Rekomendasi</h3>
+                        </div>
+                        <div class="recommended-grid" style="grid-template-columns: 1fr;">
+                            <div class="rec-card">
+                                <div class="rc-icon">🐍</div>
+                                <h4>Python Data Science</h4>
+                                <p>Lanjutkan dengan analisis data menggunakan Jupyter dan Pandas.</p>
+                                <div class="rec-footer">
+                                    <span class="price">Rp 349.000</span>
+                                    <span class="rating">⭐ 4.8</span>
+                                </div>
+                            </div>
+                            <div class="rec-card">
+                                <div class="rc-icon">🎨</div>
+                                <h4>UI/UX Design</h4>
+                                <p>Tingkatkan skill front-end React Anda dengan desain produk digital.</p>
+                                <div class="rec-footer">
+                                    <span class="price">Rp 199.000</span>
+                                    <span class="rating">⭐ 4.9</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- ===== AUTH PAGE ===== -->
+    <div id="auth" class="page">
+        <div class="auth-wrapper">
+            <div class="auth-branding">
+                <div class="auth-branding-content">
+                    <a href="#home" class="logo nav-link" style="justify-content: center; margin-bottom: 32px;"
+                        data-page="home">
+                        <div class="logo-icon" style="width:48px;height:48px;font-size:1.3rem;">✦</div>
+                        <span style="font-size:1.5rem;">Turning Code</span>
+                    </a>
+                    <h2>Selamat Datang di <span class="text-gradient">Turning Code</span></h2>
+                    <p>Bergabung dengan ribuan pelajar dan profesional yang telah meningkatkan karir mereka melalui
+                        kelas-kelas berkualitas.</p>
+                    <div class="stats-mini">
+                        <div class="stat"><strong>15K+</strong><span>Siswa</span></div>
+                        <div class="stat"><strong>320+</strong><span>Kelas</span></div>
+                        <div class="stat"><strong>50+</strong><span>Instruktur</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="auth-form-side">
+                <div class="auth-form-container">
+                    <div class="auth-tabs">
+                        <button class="auth-tab active" data-panel="login-panel">Masuk</button>
+                        <button class="auth-tab" data-panel="register-panel">Daftar</button>
+                    </div>
+
+                    <div class="auth-panel active" id="login-panel">
+                        <h2>Masuk ke Akun</h2>
+                        <p class="sub">Lanjutkan perjalanan belajar Anda.</p>
+
+                        <div class="social-buttons">
+                            <button class="btn-social">
+                                <span style="font-size:1.1rem;">G</span> Masuk dengan Google
+                            </button>
+                            <button class="btn-social">
+                                <span style="font-size:1.1rem;">⌂</span> Masuk dengan GitHub
+                            </button>
+                        </div>
+
+                        <div class="auth-divider"></div>
+
+                        <form class="form-fields" onsubmit="event.preventDefault();">
+                            <div class="input-group">
+                                <label for="login-email">Email</label>
+                                <input class="input" type="email" id="login-email" placeholder="nama@email.com">
+                            </div>
+                            <div class="input-group">
+                                <label for="login-password">Password</label>
+                                <input class="input" type="password" id="login-password"
+                                    placeholder="Masukkan password">
+                            </div>
+                            <div class="form-row">
+                                <label class="remember-check"><input type="checkbox"> Ingat saya</label>
+                                <a href="#" class="forgot-link">Lupa password?</a>
+                            </div>
+                            <button class="btn btn-primary btn-lg" type="submit" style="width:100%; margin-top: 8px;"
+                                onclick="window.location.href='#dashboard'">Masuk →</button>
+                        </form>
+                        <p class="auth-footer-text">Belum punya akun? <a href="#"
+                                onclick="document.querySelector('[data-panel=register-panel]').click()">Daftar
+                                gratis</a>
+                        </p>
+                    </div>
+
+                    <div class="auth-panel" id="register-panel">
+                        <h2>Buat Akun Baru</h2>
+                        <p class="sub">Mulai belajar skill digital masa depan.</p>
+
+                        <div class="social-buttons">
+                            <button class="btn-social">
+                                <span style="font-size:1.1rem;">G</span> Daftar dengan Google
+                            </button>
+                            <button class="btn-social">
+                                <span style="font-size:1.1rem;">⌂</span> Daftar dengan GitHub
+                            </button>
+                        </div>
+
+                        <div class="auth-divider"></div>
+
+                        <form class="form-fields" onsubmit="event.preventDefault();">
+                            <div class="input-group">
+                                <label for="reg-name">Nama Lengkap</label>
+                                <input class="input" type="text" id="reg-name" placeholder="Nama lengkap Anda">
+                            </div>
+                            <div class="input-group">
+                                <label for="reg-email">Email</label>
+                                <input class="input" type="email" id="reg-email" placeholder="nama@email.com">
+                            </div>
+                            <div class="input-group">
+                                <label for="reg-password">Password</label>
+                                <input class="input" type="password" id="reg-password" placeholder="Minimal 8 karakter">
+                            </div>
+                            <div class="input-group">
+                                <label for="reg-role">Saya adalah</label>
+                                <select class="input" id="reg-role">
+                                    <option>Mahasiswa</option>
+                                    <option>Profesional IT</option>
+                                    <option>Pelajar Sekolah</option>
+                                    <option>Lainnya</option>
+                                </select>
+                            </div>
+                            <label class="remember-check" style="margin-top: 4px;">
+                                <input type="checkbox"> Saya setuju dengan <a href="#" style="margin-left: 4px;">Syarat
+                                    &
+                                    Ketentuan</a>
+                            </label>
+                            <button class="btn btn-primary btn-lg" type="submit" style="width:100%; margin-top: 8px;"
+                                onclick="window.location.href='#dashboard'">Buat Akun →</button>
+                        </form>
+                        <p class="auth-footer-text">Sudah punya akun? <a href="#"
+                                onclick="document.querySelector('[data-panel=login-panel]').click()">Masuk</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script>
+        // Simple Router
+        function handleRoute() {
+            const hash = window.location.hash.slice(1) || 'home';
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            const activePage = document.getElementById(hash);
+            if (activePage) {
+                activePage.classList.add('active');
+                window.scrollTo(0, 0);
+            }
+        }
+
+        window.addEventListener('hashchange', handleRoute);
+        document.addEventListener('DOMContentLoaded', handleRoute);
+
+        // Navigation Link Handler
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                const dataPage = link.getAttribute('data-page');
+                if (dataPage) {
+                    window.location.hash = dataPage;
+                }
+            });
+        });
+
+        // Update Active Navigation
+        window.addEventListener('hashchange', () => {
+            const hash = window.location.hash.slice(1) || 'home';
+            document.querySelectorAll('.nav-link').forEach(link => {
+                const dataPage = link.getAttribute('data-page');
+                if (dataPage === hash) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        });
+
+        // FAQ Accordion Toggle
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const faqItem = question.closest('.faq-item');
+                if (faqItem) {
+                    faqItem.classList.toggle('open');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
